@@ -1,0 +1,6 @@
+# Temp file export path
+# TMP_DEST=~/.git-multi-revert/REVERT_MSG.tmp
+
+# Preprend Words
+# ENABLE_WORD="feature-toggle(enable)"
+# DISABLE_WORD="feature-toggle(disable)"
