@@ -33,7 +33,12 @@ setup_git_multi_revert() {
         exit 1
     }
 
-    alias git-revert="sh $GIT_MULTI_REVERT/scripts/multi-revert.sh"
+    # Setup alias to config
+    if [ -f ~/.zshrc ]; then
+        echo "alias git-multi-revert=\"sh $GIT_MULTI_REVERT/scripts/multi-revert.sh\"" >> ~/.zshrc
+    elif [ -f ~/.bashrc]; then
+        echo "alias git-multi-revert=\"sh $GIT_MULTI_REVERT/scripts/multi-revert.sh\"" >> ~/.bashrc
+    fi
 
     cp $GIT_MULTI_REVERT/scripts/multi-revertrc-template > $GIT_MULTI_REVERTRC
 
