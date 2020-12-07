@@ -1,4 +1,4 @@
-# git-multi-revert
+# Git-Multi-Revert
 
 use vim to revert multiple commits
 
