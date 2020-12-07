@@ -5,7 +5,7 @@ RED="\033[1;31m"
 BLUE="\033[0;34m"
 
 GIT_MULTI_REVERT=${GIT_MULTI_REVERT:-~/.git-multi-revert}
-GIT_MULTI_REVERTRC=${GIT_MULTI_REVERT:-~/.multi-revertrc}
+GIT_MULTI_REVERTRC=${GIT_MULTI_REVERT:-~/.git-multi-revertrc}
 REPO=${REPO:-andreashimin/git-multi-revert}
 REMOTE=${REMOTE:-https://github.com/${REPO}.git}
 BRANCH=${BRANCH:-master}
@@ -33,7 +33,7 @@ setup_git_multi_revert() {
         exit 1
     }
 
-    cp $GIT_MULTI_REVERT/scripts/multi-revertrc-template > $GIT_MULTI_REVERTRC
+    cp "$GIT_MULTI_REVERT/scripts/multi-revertrc-template" $GIT_MULTI_REVERTRC
 
     echo "${GREEN}Git-Multi-Revert install successfully!${NOCOLOR}"
 }

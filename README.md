@@ -6,7 +6,7 @@ use vim to revert multiple commits
 
 ## 1. Install Git-Multi-Revert
 
-```
+```sh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/andreashimin/git-multi-revert/master/tools/install.sh)"
 ```
 
@@ -14,13 +14,13 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/andreashimin/git-multi-rev
 
 - On-My-Zsh
 
-```
+```sh
 echo "alias git-multi-revert=\"sh ~/.git-multi-revert/scripts/multi-revert.sh\"" >> ~/.zshrc
 ```
 
 - Bash
 
-```
+```sh
 echo "alias git-multi-revert=\"sh ~/.git-multi-revert/scripts/multi-revert.sh\"" >> ~/.bashrc
 ```
 
@@ -28,7 +28,7 @@ echo "alias git-multi-revert=\"sh ~/.git-multi-revert/scripts/multi-revert.sh\""
 
 # How to Use
 
-```
+```sh
 git-multi-revert ${commit SHA-1}
 
 or
@@ -40,19 +40,19 @@ sh ~/.git-multi-revert/scripts/multi-revert.sh ${commit SHA-1}
 
 ## Edit Revert Commit Message
 
-```
+```sh
 vi ~/.git-multi-revertrc
 ```
 
 ### default
 
-```
+```sh
 ENABLE_WORD="feature-toggle(enable)"
 DISABLE_WORD="feature-toggle(disable)"
 ```
 
 ## Uninstall Git-Multi-Revert
 
-```
+```sh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/andreashimin/git-multi-revert/master/tools/uninstall.sh)"
 ```
