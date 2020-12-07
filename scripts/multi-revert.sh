@@ -41,8 +41,9 @@ echo "$content \n\n\n\n# alias: \n" \
      "# disable, d - Revert this commit to disable" > $TMP_DEST
 
 check_revert_exception () {
-    if [[ $(echo $@ | grep -i 'CONFLICT') != "" || $(echo $@ | grep -i 'error:') != "" ]]; then
-        echo "multiple revert terminate"
+    if [[ $(echo $@ | grep -i 'Revert \"') = "" ]]; then
+        echo "Revert Exception: $@"
+        echo "Multiple revert terminate"
         rm -rf $TMP_DEST
         exit;
     fi
