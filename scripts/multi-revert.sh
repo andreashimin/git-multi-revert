@@ -32,7 +32,7 @@ check_revert_exception () {
 # Commit starting point
 hash=$1
 
-if [[ $2 && "$2" == "--auto" ]]; then
+if [[ $2 && "$2" == "--auto" || $2 && "$2" == "-a" ]]; then
     autoFlag=1
 fi
 
@@ -64,7 +64,11 @@ create_logs_to_tmpfile() {
 
     # Auto Revert
     if [ $autoFlag ]; then
-        content=$(echo "$content" | sed '/toggle(disable/ s/^disable/enable /;/toggle(disable/! s/^enable /disable/')
+        if [ $endHash ]; then
+            content=$(echo "$content" | sed '/toggle(disable/ s/^disable/enable /;/toggle(disable/! s/^enable /disable/')
+        else
+            content=$(echo "$content" | grep -i $hash | sed '/toggle(disable/ s/^disable/enable /;/toggle(disable/! s/^enable /disable/')
+        fi
     fi
 
     echo "$content \n\n\n\n# alias:\n"\
