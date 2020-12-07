@@ -36,7 +36,8 @@ if [[ $2 && "$2" == "--auto" ]]; then
     autoFlag=1
 fi
 
-if [[ $(echo $hash | grep -i '...') != "" ]]; then
+
+if [[ $(echo $hash | grep -i '\.\.\.') != "" ]]; then
     _resetHash=$(echo $hash | sed 's/\.\.\./ /')
     endHash=$(echo $_resetHash | cut -d ' ' -f1)
     hash=$(echo $_resetHash | cut -d ' ' -f2)
@@ -59,7 +60,6 @@ create_logs_to_tmpfile() {
     # Remove line not contain latestHash
     if [ $endHash ]; then
         content=$(echo "$content" | sed "/$endHash/,$ !d")
-        echo "$content"
     fi
 
     # Auto Revert
@@ -73,7 +73,6 @@ create_logs_to_tmpfile() {
 }
 
 create_logs_to_tmpfile $hash
-exit 1;
 
 if [ ! $autoFlag ]; then
     vi $TMP_DEST
