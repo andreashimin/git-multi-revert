@@ -17,9 +17,9 @@ fi
 
 # Remove alias from config
 if [ -f ~/.zshrc ]; then
-    sed -e "/sh $GIT_MULTI_REVERT/scripts/multi-revert.sh\"/d" ~/.zshrc > ~.zshrc
+    sed -e "/scripts/multi-revert.sh\"/d" ~/.zshrc > ~/.zshrc
 elif [ -f ~/.bashrc]; then
-    sed -e "/sh $GIT_MULTI_REVERT/scripts/multi-revert.sh\"/d" ~/.bashrc > ~.bashrc
+    sed -e "/scripts/multi-revert.sh\"/d" ~/.bashrc > ~/.bashrc
 fi
 
 echo "Git-Multi-Revert uninstall successfully!"
