@@ -53,7 +53,7 @@ vi $TMP_DEST
 while IFS= read -r line
 do
     _hash=$(echo $line | cut -d ' ' -f2)
-    _commitMessage=$(echo $line | sed 's/^enable //;s/^disable //;s/^e //;s/^d //;s/^.\{8,12\} //')
+    _commitMessage=$(echo $line | sed 's/^disable[[:space:]]*//;s/^d[[:space:]]*//;s/^enable[[:space:]]*//;s/^e[[:space:]]*//;s/^[[:alnum:]]\{5,40\}[[:space:]]*//')
     _action=$(echo $line | cut -d ' ' -f1)
 
     # Disable commit
