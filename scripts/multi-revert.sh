@@ -9,36 +9,16 @@ if test -f ~/.git-multi-revertrc ; then
    . ~/.git-multi-revertrc
 fi
 
+# Colors Print
 NOCOLOR="\033[0m"
 GREEN="\033[1;32m"
 RED="\033[1;31m"
 BLUE="\033[0;34m"
 
-# Commit starting point
-hash=$1
-
-echo "From Commit: ${BLUE}$hash${NOCOLOR}"
-
-echo "Revert list:"
-
-line=$(git log --oneline | grep -n $hash | cut -d ':' -f1)
-
-content=$(git log -$line --pretty=format:"%h %s")
-
 # Check if temp file exist
 if [ -f $TMP_DEST ]; then
     rm -rf $TMP_DEST
 fi
-
-# Get history revert status
-content=$(echo "$content" | \
-    grep -i -v 'merge' | \
-    sed '/toggle(disable/ s/^/disable /' | \
-    sed '/toggle(disable/! s/^/enable  /')
-
-echo "$content \n\n\n\n# alias: \n" \
-     "# enable, e - Revert this commit to enable\n" \
-     "# disable, d - Revert this commit to disable" > $TMP_DEST
 
 check_revert_exception () {
     if [[ $(echo $@ | grep -i 'Revert \"') = "" ]]; then
@@ -49,8 +29,58 @@ check_revert_exception () {
     fi
 }
 
-vi $TMP_DEST
+# Commit starting point
+hash=$1
 
+if [[ $2 && "$2" == "--auto" ]]; then
+    autoFlag=1
+fi
+
+if [[ $(echo $hash | grep -i '...') != "" ]]; then
+    _resetHash=$(echo $hash | sed 's/\.\.\./ /')
+    endHash=$(echo $_resetHash | cut -d ' ' -f1)
+    hash=$(echo $_resetHash | cut -d ' ' -f2)
+    echo "From Commit: ${BLUE}$endHash...$hash${NOCOLOR}"
+else
+    echo "From Commit: ${BLUE}$hash${NOCOLOR}"
+fi
+
+create_logs_to_tmpfile() {
+    line=$(git log --oneline --topo-order | grep -n $@ | cut -d ':' -f1)
+
+    content=$(git log -$line --topo-order --pretty=format:"%h %s")
+
+    # Get history revert status
+    content=$(echo "$content" | \
+        grep -i -v 'merge' | \
+        sed '/toggle(disable/ s/^/disable /' | \
+        sed '/toggle(disable/! s/^/enable  /')
+
+    # Remove line not contain latestHash
+    if [ $endHash ]; then
+        content=$(echo "$content" | sed "/$endHash/,$ !d")
+        echo "$content"
+    fi
+
+    # Auto Revert
+    if [ $autoFlag ]; then
+        content=$(echo "$content" | sed '/toggle(disable/ s/^disable/enable /;/toggle(disable/! s/^enable /disable/')
+    fi
+
+    echo "$content \n\n\n\n# alias:\n"\
+    "# enable, e - Revert this commit to enable\n"\
+    "# disable, d - Revert this commit to disable" > $TMP_DEST
+}
+
+create_logs_to_tmpfile $hash
+exit 1;
+
+if [ ! $autoFlag ]; then
+    vi $TMP_DEST
+fi
+
+# Start Revert
+echo "Revert list:"
 while IFS= read -r line
 do
     _hash=$(echo $line | cut -d ' ' -f2)

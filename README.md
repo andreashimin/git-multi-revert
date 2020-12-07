@@ -28,12 +28,28 @@ echo "alias git-multi-revert=\"sh ~/.git-multi-revert/scripts/multi-revert.sh\""
 
 # How to Use
 
+- Will return the latest commit logs untill your select commit
+
 ```sh
 git-multi-revert ${commit SHA-1}
 
 or
 
 sh ~/.git-multi-revert/scripts/multi-revert.sh ${commit SHA-1}
+```
+
+## Optional Revert Way
+
+- Give a range of commits(from latest...oldest) to Git-Multi-Revert
+
+```sh
+git-multi-revert ${commit SHA-1}...${commit SHA-1}
+```
+
+- You can set a flag `--auto` for Git-Multi-Revert automatic revert your commits
+
+```sh
+git-multi-revert ${commit SHA-1} --auto
 ```
 
 # Others
