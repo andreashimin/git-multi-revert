@@ -46,7 +46,7 @@ sh ~/.git-multi-revert/scripts/multi-revert.sh ${commit SHA-1}
 git-multi-revert ${commit SHA-1}...${commit SHA-1}
 ```
 
-- You can set a flag `--auto` for Git-Multi-Revert automatic revert your commits
+- You can set a flag `--auto, -a` for Git-Multi-Revert automatic revert your commits
 
 ```sh
 git-multi-revert ${commit SHA-1} --auto
